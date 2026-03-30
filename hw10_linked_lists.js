@@ -138,7 +138,17 @@ function insertAfter(list, target, value) {
 // Reverse the list in-place and return the list.
 // Example: 10 -> 20 -> 30 becomes 30 -> 20 -> 10
 function reverseList(list) {
-// YOUR CODE HERE
+  let current = list.head;
+
+  while (current) {
+    let nextTemp = current.next; // save next
+    current.next = prev;        // reverse pointer
+    prev = current;             // move prev forward
+    current = nextTemp;         // move current forward
+  }
+
+  list.head = prev;
+  return list;
 }
 
 module.exports = {
