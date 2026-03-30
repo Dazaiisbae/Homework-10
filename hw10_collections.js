@@ -9,22 +9,43 @@ const setB = new Set([3, 4, 5, 6]);
 
 // TODO 4a: Return a new Set containing the union of a and b.
 function union(a, b) {
-// YOUR CODE HERE
+const result = new Set(a);
+  for (let value of b) {
+    result.add(value);
+  }
+  return result;
 }
 
 // TODO 4b: Return a new Set containing the intersection of a and b.
 function intersection(a, b) {
-// YOUR CODE HERE
+ const result = new Set();
+  for (let value of a) {
+    if (b.has(value)) {
+      result.add(value);
+    }
+  }
+  return result;
 }
 
 // TODO 4c: Return a new Set containing values in a but not in b.
 function difference(a, b) {
-// YOUR CODE HERE
+  const result = new Set();
+  for (let value of a) {
+    if (!b.has(value)) {
+      result.add(value);
+    }
+  }
+  return result;
 }
 
 // TODO 4d: Return true if every value in subset exists in superset.
 function isSubset(subset, superset) {
-// YOUR CODE HERE
+  for (let value of subset) {
+    if (!superset.has(value)) {
+      return false;
+    }
+  }
+  return true;
 }
 
 // ════════════════════════════════════════════
@@ -40,19 +61,33 @@ const inventory = new Map([
 // If item exists, increase its quantity by qty.
 // If item does not exist, add it with qty.
 function addOrUpdateItem(map, item, qty) {
-// YOUR CODE HERE
+  if (map.has(item)) {
+    map.set(item, map.get(item) + qty);
+  } else {
+    map.set(item, qty);
+  }
 }
 
 // TODO 5b: totalQuantity(map)
 // Return the sum of all quantities stored in the map.
 function totalQuantity(map) {
-// YOUR CODE HERE
+  let total = 0;
+  for (let value of map.values()) {
+    total += value;
+  }
+  return total;
 }
 
 // TODO 5c: itemsBelowThreshold(map, threshold)
 // Return an array of item names whose quantity is < threshold.
 function itemsBelowThreshold(map, threshold) {
-// YOUR CODE HERE
+  const result = [];
+  for (let [key, value] of map.entries()) {
+    if (value < threshold) {
+      result.push(key);
+    }
+  }
+  return result;
 }
 
 // ════════════════════════════════════════════
@@ -62,14 +97,32 @@ function itemsBelowThreshold(map, threshold) {
 // compresses into the table size using modulo.
 // Example: hash("cat", 10) → some integer from 0 to 9
 function simpleHash(key, tableSize) {
-// YOUR CODE HERE
+ let total = 0;
+
+  for (let i = 0; i < key.length; i++) {
+    total += key.charCodeAt(i);
+  }
+
+  return total % tableSize;
 }
 
 // BONUS 6b: groupByFirstLetter(words)
 // Return an object where each key is a first letter and
 // each value is an array of words that begin with that letter.
 function groupByFirstLetter(words) {
-// YOUR CODE HERE
+ const result = {};
+
+  for (let word of words) {
+    const first = word[0];
+
+    if (!result[first]) {
+      result[first] = [];
+    }
+
+    result[first].push(word);
+  }
+
+  return result;
 }
 
 module.exports = {
